@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  server:
+  bot-server:
     build:
       context: .
       dockerfile: bot/docker/server.Dockerfile
-    image: server:latest
-    container_name: server
+    image: bot-server:latest
+    container_name: bot-server
     restart: always
     depends_on:
       db:
@@ -26,7 +26,7 @@ services:
     depends_on:
       db:
         condition: service_started
-      server:
+      bot-server:
         condition: service_started
   bot-admin:
     build:
@@ -36,7 +36,7 @@ services:
     container_name: bot-admin
     restart: always
     depends_on:
-      server:
+      bot-server:
         condition: service_started
     ports:
       - 443:443
@@ -65,7 +65,7 @@ services:
       retries: 5
       start_period: 80s 
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql@16/data
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
