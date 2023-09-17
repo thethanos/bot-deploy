@@ -15,7 +15,7 @@ services:
       - /home/bot
       - /home/images:/bot/images
     ports:
-      - 444:444
+      - 1444:1444
   bot:
     build: 
       context: .
@@ -28,6 +28,30 @@ services:
         condition: service_started
       server:
         condition: service_started
+  bot-admin:
+    build:
+      context: .
+      dockerfile: bot-admin/docker/run.Dockerfile
+    image: bot-admin:latest
+    container_name: bot-admin
+    restart: always
+    depends_on:
+      server:
+        condition: service_started
+    ports:
+      - 443:443
+  bot-webapp:
+    build:
+      context: .
+      dockerfile: bot-webapp/docker/run.Dockerfile
+    image: bot-webapp:latest
+    container_name: bot-webapp
+    restart: always
+    depends_on:
+      db:
+        condition: service_started
+    ports:
+      - 1445:1445
   db:
     container_name: postgres
     image: postgres
