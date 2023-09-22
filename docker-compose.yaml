@@ -4,7 +4,7 @@ services:
   bot-server:
     build:
       context: .
-      dockerfile: bot/docker/server.Dockerfile
+      dockerfile: bot-server/docker/run.Dockerfile
     image: bot-server:latest
     container_name: bot-server
     restart: always
@@ -12,8 +12,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - /home/bot
-      - /home/images:/bot/images
+      - /home/images:/bot-server/images
     ports:
       - 1444:1444
   bot:
