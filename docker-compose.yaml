@@ -18,7 +18,7 @@ services:
   bot:
     build: 
       context: .
-      dockerfile: bot/docker/bot.Dockerfile
+      dockerfile: bot/docker/run.Dockerfile
     image: bot:latest
     container_name: bot
     restart: always
