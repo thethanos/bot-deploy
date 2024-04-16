@@ -74,5 +74,18 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - 8080:80
+  minio:
+    container_name: minio
+    image: quay.io/minio/minio
+    command: ["server", "/data", "--console-address", ":9001"]
+    restart: always
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: admin1234
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - /home/minio/data:/data
 volumes:
   pgdata:
