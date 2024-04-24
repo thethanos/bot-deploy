@@ -87,5 +87,6 @@ services:
       - 9001:9001
     volumes:
       - /home/minio/data:/data
+      - /home/minio/certs:/root/.minio/certs
 volumes:
   pgdata:
